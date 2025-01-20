@@ -1,0 +1,39 @@
+<resources>
+    <!-- Default -->
+    <string name="app_name">SoundX</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Navigation Bar-->
+    <string name="nav_home">Home</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_search">Search</string>
+
+    <!-- Library Fragment-->
+    <string name="lib_fragment_library">Library</string>
+    <string name="lib_fragment_playlist">Playlist</string>
+    <string name="lib_fragment_add">Add</string>
+    <string name="lib_fragment_sort">Sort</string>
+    <string name="lib_fragment_playlist_image">image</string>
+
+    <!-- Home Fragment -->
+
+    <!-- Search Fragment -->
+
+    <!-- Create Fragment -->
+    <string name="create_playlist">Create Playlist</string>
+    <string name="create_playlist_change_picture">Change Picture</string>
+    <string name="create_playlist_name_hint">Type your playlist name..</string>
+    <string name="create_playlist_bio_hint">Fill with a nice bio..</string>
+    <string name="create_playlist_create_button">Create it!</string>
+    <string name="create_playlist_cancel_button">Cancel</string>
+
+    <!-- RecyclerView item -->
+    <string name="recycler_view_more_button">More..</string>
+
+    <!-- Playlist Sheet Dialog -->
+    <string name="playlist_sheet_dialog_config">Configurations</string>
+    <string name="playlist_sheet_dialog_delete">Delete</string>
+    <string name="playlist_sheet_dialog_edit">Edit</string>
+    <string name="playlist_sheet_dialog_share">Share</string>
+
+</resources>

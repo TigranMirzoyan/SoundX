@@ -1,0 +1,7 @@
+<resources>
+    <style name="Base.Theme.SoundX" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
+    <style name="Theme.SoundX" parent="Base.Theme.SoundX" />
+</resources>
