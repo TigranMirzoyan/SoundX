@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.SearchFragment">
+    tools:context=".view.fragment.search.SearchFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textColor="@color/white"
         android:text="@string/nav_search" />
 
 </FrameLayout>

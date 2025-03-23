@@ -8,4 +8,5 @@
     <color name="dark_purple">#CD673AB7</color>
     <color name="gold">#FFD700</color>
     <color name="dark_gold">#CDFFD700</color>
+    <color name="tint">#66000000</color>
 </resources>

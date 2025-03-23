@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.LibraryFragment">
+    android:background="@color/dark_grey"
+    tools:context=".view.fragment.library.LibraryFragment">
 
     <TextView
+        android:id="@+id/library_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/lib_fragment_library"
+        android:textColor="@color/white"
+        android:textSize="48sp" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/library_text"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/lib_fragment_playlist"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/add_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/lib_ic_add_playlist"
+            android:contentDescription="@string/lib_fragment_add" />
+
+        <ImageButton
+            android:id="@+id/sort_playlists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lib_ic_list"
+            android:contentDescription="@string/lib_fragment_sort" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/nav_library" />
+        android:layout_below="@id/linear"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        tools:itemCount="11"
+        tools:listitem="@layout/playlist_recyclerview_item" />
 
-</FrameLayout>
+</RelativeLayout>

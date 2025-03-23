@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey"
+    tools:context=".view.fragment.library.CreatePlaylistFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/create_playlist"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_marginVertical="32dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/playlist_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/background_change_picture"
+                android:contentDescription="@string/create_playlist_change_picture" />
+
+            <ImageView
+                android:id="@+id/remove"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/ic_cancel"
+                android:layout_margin="8dp"
+                android:visibility="gone"
+                android:layout_alignEnd="@id/playlist_image"
+                android:contentDescription="@string/create_playlist_remove_picture" />
+
+            <ImageView
+                android:id="@+id/pick_image"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_change_picture"
+                android:contentDescription="@string/create_playlist_change_picture" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:autofillHints="name"
+            android:background="@drawable/background_edittext"
+            android:hint="@string/create_playlist_name_hint"
+            android:inputType="text"
+            android:maxLength="16"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey" />
+
+        <EditText
+            android:id="@+id/bio"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:background="@drawable/background_edittext"
+            android:hint="@string/create_playlist_bio_hint"
+            android:inputType="text"
+            android:maxLength="16"
+            android:padding="16dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey" />
+
+        <Button
+            android:id="@+id/create"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/background_create_playlist_button"
+            android:text="@string/create_playlist_create_button"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:text="@string/create_playlist_cancel_button"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</RelativeLayout>

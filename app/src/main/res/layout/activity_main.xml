@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/dark_grey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.MainActivity">
@@ -9,18 +10,21 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="-36dp"
+        android:layout_above="@id/navigation_bar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="128dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/nav_background"
+        android:background="@drawable/background_nav"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="@dimen/icon_size"
-        app:itemPaddingBottom="20dp"
         app:itemIconTint="@drawable/selector_nav_ic_color"
+        android:paddingTop="36dp"
+        app:itemPaddingBottom="16dp"
         app:itemTextColor="@drawable/selector_nav_ic_color"
         app:menu="@menu/navigation_items" />
 

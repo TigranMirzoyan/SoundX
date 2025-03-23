@@ -22,10 +22,20 @@
     <!-- Create Fragment -->
     <string name="create_playlist">Create Playlist</string>
     <string name="create_playlist_change_picture">Change Picture</string>
+    <string name="create_playlist_remove_picture">Remove Picture</string>
     <string name="create_playlist_name_hint">Type your playlist name..</string>
     <string name="create_playlist_bio_hint">Fill with a nice bio..</string>
     <string name="create_playlist_create_button">Create it!</string>
     <string name="create_playlist_cancel_button">Cancel</string>
+
+    <!-- Edit Fragment -->
+    <string name="edit_playlist">Edit Playlist</string>
+    <string name="edit_playlist_change_picture">Change Picture</string>
+    <string name="edit_playlist_remove_picture">Remove Picture</string>
+    <string name="edit_playlist_name_hint">Type your playlist name..</string>
+    <string name="edit_playlist_bio_hint">Fill with a nice bio..</string>
+    <string name="Edit_playlist_edit_button">Edit</string>
+    <string name="edit_playlist_cancel_button">Cancel</string>
 
     <!-- RecyclerView item -->
     <string name="recycler_view_more_button">More..</string>
