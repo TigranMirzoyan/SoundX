@@ -4,19 +4,19 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.soundx.database.Playlist
-import com.soundx.database.PlaylistDatabase
-import com.soundx.repository.PlaylistRepository
+import com.soundx.model.database.playlist.Playlist
+import com.soundx.model.database.AppDatabase
+import com.soundx.model.repository.PlaylistRepository
 import kotlinx.coroutines.launch
 
 class PlaylistViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PlaylistRepository
-    val allStudents: LiveData<List<Playlist>>
+    val allPlaylists: LiveData<List<Playlist>>
 
     init {
-        val playlistDao = PlaylistDatabase.getDatabase(application).playlistDao()
+        val playlistDao = AppDatabase.getDatabase(application).playlistDao()
         repository = PlaylistRepository(playlistDao)
-        allStudents = repository.allPlaylists
+        allPlaylists = repository.allPlaylists
     }
 
     fun add(playlist: Playlist) = viewModelScope.launch {

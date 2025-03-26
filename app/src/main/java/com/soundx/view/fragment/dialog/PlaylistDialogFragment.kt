@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.soundx.databinding.FragmentPlaylistDialogBinding
 import com.soundx.util.Fragments
 import com.soundx.util.ImageStorageManager
-import com.soundx.view.navigation.NavigationManager
+import com.soundx.util.NavigationManager
 import com.soundx.viewmodel.PlaylistViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

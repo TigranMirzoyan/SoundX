@@ -1,8 +1,8 @@
-package com.soundx.repository
+package com.soundx.model.repository
 
 import androidx.lifecycle.LiveData
-import com.soundx.database.Playlist
-import com.soundx.database.PlaylistDao
+import com.soundx.model.database.playlist.Playlist
+import com.soundx.model.database.playlist.PlaylistDao
 
 class PlaylistRepository(private val playlistDao: PlaylistDao) {
     val allPlaylists: LiveData<List<Playlist>> = playlistDao.getAll()

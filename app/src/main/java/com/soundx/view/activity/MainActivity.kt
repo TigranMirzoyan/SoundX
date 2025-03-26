@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.soundx.R
 import com.soundx.databinding.ActivityMainBinding
 import com.soundx.util.Fragments
-import com.soundx.view.navigation.NavigationManager
+import com.soundx.util.NavigationManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

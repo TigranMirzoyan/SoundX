@@ -20,7 +20,7 @@ import com.soundx.R
 import com.soundx.databinding.FragmentEditBinding
 import com.soundx.util.Fragments
 import com.soundx.util.ImageStorageManager
-import com.soundx.view.navigation.NavigationManager
+import com.soundx.util.NavigationManager
 import com.soundx.viewmodel.PlaylistViewModel
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.Dispatchers

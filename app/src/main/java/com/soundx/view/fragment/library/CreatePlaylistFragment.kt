@@ -16,11 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.soundx.R
-import com.soundx.database.Playlist
+import com.soundx.util.CreatePlaylist
 import com.soundx.databinding.FragmentCreateBinding
 import com.soundx.util.Fragments
 import com.soundx.util.ImageStorageManager
-import com.soundx.view.navigation.NavigationManager
+import com.soundx.util.NavigationManager
 import com.soundx.viewmodel.PlaylistViewModel
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +34,7 @@ class CreatePlaylistFragment : Fragment() {
     private lateinit var viewModel: PlaylistViewModel
     private lateinit var pickImageActivityResult: ActivityResultLauncher<String>
     private lateinit var cropActivityResult: ActivityResultLauncher<Intent>
-    private var filePath = ""
+    private var imagePath = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,23 +64,24 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun create() {
-        val playlistName = binding.name.text.toString().trim()
+        val name = binding.name.text.toString().trim()
+        val bio = binding.bio.text.toString().trim()
 
-        if (playlistName.isEmpty() || playlistName.length < 4) {
-            Toast.makeText(requireContext(), "Name must be at least 4 characters.", Toast.LENGTH_SHORT).show()
+        if (name.isEmpty() || name.length < 4) {
+            Toast.makeText(
+                requireContext(),
+                "Name must be at least 4 characters.",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
-        if (filePath.isEmpty()) {
-            filePath = "android.resource://com.soundx/${R.drawable.default_image}"
+        if (imagePath.isEmpty()) {
+            imagePath = "android.resource://com.soundx/${R.drawable.default_image}"
         }
 
-        val playlist = Playlist(
-            name = playlistName,
-            bio = binding.bio.text.toString(),
-            imagePath = filePath,
-            songsNum = 0
-        )
+        val playlist =
+            CreatePlaylist.createPlaylist(name, bio, imagePath)
 
         viewModel.add(playlist)
         binding.name.text.clear()
@@ -102,16 +103,18 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun pickImage() {
-        pickImageActivityResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let { crop(it) }
-        }
-
-        cropActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val croppedUri = UCrop.getOutput(result.data!!)
-                croppedUri?.let { saveAndDisplayImage(it) }
+        pickImageActivityResult =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                uri?.let { crop(it) }
             }
-        }
+
+        cropActivityResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val croppedUri = UCrop.getOutput(result.data!!)
+                    croppedUri?.let { saveAndDisplayImage(it) }
+                }
+            }
     }
 
     private fun crop(sourceUri: Uri) {
@@ -125,8 +128,8 @@ class CreatePlaylistFragment : Fragment() {
 
     private fun saveAndDisplayImage(uri: Uri) {
         lifecycleScope.launch(Dispatchers.IO) {
-            if (filePath.isNotEmpty()) ImageStorageManager.deleteImageFromInternalStorage(filePath)
-            filePath = ImageStorageManager.saveImageToInternalStorage(uri, requireContext()) ?: ""
+            if (imagePath.isNotEmpty()) ImageStorageManager.deleteImageFromInternalStorage(imagePath)
+            imagePath = ImageStorageManager.saveImageToInternalStorage(uri, requireContext()) ?: ""
             withContext(Dispatchers.Main) {
                 binding.playlistImage.setImageURI(null)
                 binding.playlistImage.setImageURI(uri)
@@ -139,15 +142,15 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun deleteImage() {
-        if (filePath.isEmpty()) return
+        if (imagePath.isEmpty()) return
         lifecycleScope.launch(Dispatchers.IO) {
-            ImageStorageManager.deleteImageFromInternalStorage(filePath)
-            filePath = ""
+            ImageStorageManager.deleteImageFromInternalStorage(imagePath)
+            imagePath = ""
         }
     }
 
     private fun putDefaultImage() {
-        filePath = ""
+        imagePath = ""
         binding.playlistImage.setImageDrawable(null)
         binding.playlistImage.setImageDrawable(
             ContextCompat.getDrawable(requireContext(), R.drawable.background_change_picture)

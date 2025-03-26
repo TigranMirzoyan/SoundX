@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.soundx.database.Playlist
+import com.soundx.model.database.playlist.Playlist
 import com.soundx.databinding.FragmentLibraryBinding
 import com.soundx.util.DialogFragments
 import com.soundx.util.Fragments
-import com.soundx.view.navigation.NavigationManager
+import com.soundx.util.NavigationManager
 import com.soundx.viewmodel.PlaylistViewModel
 
 
@@ -43,7 +43,7 @@ class LibraryFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        viewModel.allStudents.observe(viewLifecycleOwner) { playlists ->
+        viewModel.allPlaylists.observe(viewLifecycleOwner) { playlists ->
             adapter.submitList(playlists)
         }
     }

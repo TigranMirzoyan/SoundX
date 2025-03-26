@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,6 +10,9 @@ android {
     namespace = "com.soundx"
     compileSdk = 35
 
+    val properties = Properties()
+    properties.load(rootProject.file("local.properties").inputStream())
+
     defaultConfig {
         applicationId = "com.soundx"
         minSdk = 30
@@ -16,6 +21,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "apiKey", "\"${properties.getProperty("youtubeApiKey")}\"")
+
     }
 
     buildTypes {
@@ -29,6 +36,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 

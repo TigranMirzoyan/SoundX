@@ -6,7 +6,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.soundx.database.Playlist
+import com.soundx.model.database.playlist.Playlist
 import com.soundx.databinding.PlaylistRecyclerviewItemBinding
 
 class LibraryAdapter(

@@ -1,11 +1,9 @@
-package com.soundx.view.navigation
+package com.soundx.util
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.soundx.R
-import com.soundx.util.DialogFragments
-import com.soundx.util.Fragments
 import com.soundx.view.fragment.library.CreatePlaylistFragment
 import com.soundx.view.fragment.home.HomeFragment
 import com.soundx.view.fragment.library.LibraryFragment

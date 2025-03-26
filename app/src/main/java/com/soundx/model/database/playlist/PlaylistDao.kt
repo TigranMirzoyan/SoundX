@@ -1,4 +1,4 @@
-package com.soundx.database
+package com.soundx.model.database.playlist
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
