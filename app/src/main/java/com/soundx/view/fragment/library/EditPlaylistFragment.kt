@@ -57,7 +57,7 @@ class EditPlaylistFragment : Fragment() {
     }
 
     private fun configureButtons() {
-        binding.editPlaylist.setOnClickListener { edit() }
+        binding.edit.setOnClickListener { edit() }
         binding.cancel.setOnClickListener { cancel() }
         binding.remove.setOnClickListener { removeImage() }
         binding.pickImage.setOnClickListener { pickImageActivityResult.launch("image/*") }

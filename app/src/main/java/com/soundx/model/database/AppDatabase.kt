@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.soundx.model.database.music.Music
 import com.soundx.model.database.music.MusicDao
 import com.soundx.model.database.playlist.Playlist
 import com.soundx.model.database.playlist.PlaylistDao
 
-@Database(entities = [Playlist::class], version = 1)
+@Database(entities = [Playlist::class, Music::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
     abstract fun musicDao(): MusicDao

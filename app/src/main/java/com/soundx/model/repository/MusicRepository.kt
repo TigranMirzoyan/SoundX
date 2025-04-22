@@ -6,17 +6,22 @@ import com.soundx.model.database.music.MusicDao
 import com.soundx.model.youtube.RetrofitClient.youtubeApi
 import com.soundx.model.youtube.YouTubeVideo
 
-class YouTubeRepository(private val musicDao: MusicDao) {
+class MusicRepository(private val musicDao: MusicDao) {
     val allMusics: LiveData<List<Music>> = musicDao.getAll()
 
-    suspend fun searchVideos(query: String): List<YouTubeVideo>{
+    suspend fun searchVideos(query: String): List<YouTubeVideo> {
         val response = youtubeApi.searchVideos(query = query)
         return response.items.map {
-            YouTubeVideo(it.id.videoId, it.snippet.title, it.snippet.thumbnails.medium.url)
+            YouTubeVideo(
+                it.id.videoId,
+                it.snippet.title,
+                it.snippet.channelTitle,
+                it.snippet.thumbnails.medium.url
+            )
         }
     }
 
-    suspend fun add(music: Music){
+    suspend fun add(music: Music) {
         musicDao.add(music)
     }
 }

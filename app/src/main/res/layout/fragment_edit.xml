@@ -83,7 +83,7 @@
             android:textColorHint="@color/grey" />
 
         <Button
-            android:id="@+id/edit_playlist"
+            android:id="@+id/edit"
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"

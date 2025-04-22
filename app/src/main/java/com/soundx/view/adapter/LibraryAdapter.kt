@@ -1,4 +1,4 @@
-package com.soundx.view.fragment.library
+package com.soundx.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -36,9 +36,9 @@ class LibraryAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(playlist: Playlist) {
-            binding.playlistImage.setImageURI(playlist.imagePath.toUri())
-            binding.playlistName.text = playlist.name
-            if (playlist.songsNum != 0) binding.playlistSongsNumber.text = "${playlist.songsNum}"
+            binding.image.setImageURI(playlist.imagePath.toUri())
+            binding.name.text = playlist.name
+            if (playlist.songsNum != 0) binding.songsAmount.text = "${playlist.songsNum}"
 
             itemView.setOnClickListener { onPlaylistClick(playlist) }
             binding.more.setOnClickListener { onOptionsClick(playlist) }

@@ -12,24 +12,23 @@
         android:contentDescription="@string/lib_fragment_playlist_image" />
 
     <LinearLayout
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_toStartOf="@+id/more"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
         android:layout_toEndOf="@id/image"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/songs_amount"
+            android:id="@+id/creator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -37,13 +36,4 @@
             android:textColor="@color/grey"
             android:textSize="12sp" />
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/ic_more"
-        android:contentDescription="@string/recycler_view_more_button" />
 </RelativeLayout>

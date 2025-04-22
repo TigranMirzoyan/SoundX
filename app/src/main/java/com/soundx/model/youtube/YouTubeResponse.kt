@@ -19,5 +19,6 @@ data class YouTubeThumbnail(val url: String)
 data class YouTubeVideo(
     val videoId: String,
     val title: String,
+    val creator: String,
     val thumbnailUrl: String
 )

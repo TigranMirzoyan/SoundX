@@ -12,6 +12,7 @@ import com.soundx.databinding.FragmentLibraryBinding
 import com.soundx.util.DialogFragments
 import com.soundx.util.Fragments
 import com.soundx.util.NavigationManager
+import com.soundx.view.adapter.LibraryAdapter
 import com.soundx.viewmodel.PlaylistViewModel
 
 
