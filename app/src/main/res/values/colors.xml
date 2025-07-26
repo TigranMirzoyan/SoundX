@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#0D0A0B</color>
+    <color name="white">#F3EFF5</color>
+    <color name="charcoal">#454955</color>
+    <color name="green">#72B01D</color>
+    <color name="office_green">#3F7D20</color>
+    <color name="deep">#121A25</color>
+    <color name="brown_light">#BFAE90</color>
+    <color name="gray_dark">#2C2C2E</color>
+    <color name="deep_light">#1E2633 </color>
+</resources>

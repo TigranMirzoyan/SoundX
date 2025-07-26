@@ -1,0 +1,51 @@
+[versions]
+agp = "8.11.1"
+kotlin = "2.2.0"
+
+coreKtx = "1.16.0"
+junit = "4.13.2"
+
+material = "1.12.0"
+
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.1"
+activity = "1.10.1"
+constraintlayout = "2.2.1"
+
+retrofit = "3.0.0"
+
+lifecycle = "2.9.2"
+
+glide = "4.16.0"
+
+[libraries]
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+
+lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+
+glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+[bundles]
+androidx = ["androidx-appcompat", "androidx-core-ktx", "androidx-activity", "androidx-constraintlayout", "androidx-activity-ktx"]
+retrofit = ["retrofit", "retrofit-converter"]
+lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]

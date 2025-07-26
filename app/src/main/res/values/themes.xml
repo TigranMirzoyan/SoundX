@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="Base.Theme.SoundX" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+    <style name="Theme.SoundX" parent="Base.Theme.SoundX" />
+</resources>

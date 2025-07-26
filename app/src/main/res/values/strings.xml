@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SoundX</string>
+
+    <string name="nav_menu_song">Songs</string>
+    <string name="nav_menu_playlist">Playlists</string>
+    <string name="nav_menu_search">Search</string>
+
+    <string name="recycler_view_search_video_music_image">Thumbnail</string>
+    <string name="recycler_view_search_video_music_heading">Search</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
