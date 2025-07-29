@@ -19,6 +19,9 @@ lifecycle = "2.9.2"
 
 glide = "4.16.0"
 
+yplayer = "12.1.2"
+newpipe = "0.24.6"
+
 [libraries]
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
@@ -41,6 +44,10 @@ lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-
 
 glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
 
+youtube-player-core = {group = "com.pierfrancescosoffritti.androidyoutubeplayer", name = "core", version.ref = "yplayer"}
+youtube-player-custom = {group = "com.pierfrancescosoffritti.androidyoutubeplayer", name = "custom-ui", version.ref = "yplayer"}
+new_pipe = {group = "com.github.teamnewpipe", name = "NewPipeExtractor", version.ref = "newpipe"}
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -49,3 +56,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidx = ["androidx-appcompat", "androidx-core-ktx", "androidx-activity", "androidx-constraintlayout", "androidx-activity-ktx"]
 retrofit = ["retrofit", "retrofit-converter"]
 lifecycle = ["lifecycle-viewmodel", "lifecycle-livedata"]
+youtube-player = ["youtube-player-core", "youtube-player-custom"]

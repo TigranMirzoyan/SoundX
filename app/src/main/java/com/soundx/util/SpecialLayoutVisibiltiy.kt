@@ -1,6 +1,6 @@
 package com.soundx.util
 
-object SpecialLayoutVisibility {
+object SetSpecialLayoutVisibility {
     private lateinit var setVisibilityCallback: (Boolean) -> Unit
     private var isVisible = false
 
@@ -25,7 +25,6 @@ object SpecialLayoutVisibility {
     }
 
     private fun checkCallbackInit() {
-        if (::setVisibilityCallback.isInitialized) return
-        throw IllegalStateException("SpecialLayoutVisibility is not initialized. Call init() first.")
+        check(::setVisibilityCallback.isInitialized) { "SpecialLayoutVisibility is not initialized. Call init() first." }
     }
 }

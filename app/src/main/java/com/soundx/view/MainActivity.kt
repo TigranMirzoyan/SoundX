@@ -11,10 +11,11 @@ import com.soundx.R
 import com.soundx.databinding.ActivityMainBinding
 import com.soundx.util.DefaultFragments
 import com.soundx.util.NavigationManager
-import com.soundx.util.SpecialLayoutVisibility
+import com.soundx.util.SetSpecialLayoutVisibility
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,11 +39,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        SpecialLayoutVisibility.init(setSpecialLayoutVisibility())
-        setUpBottomNavigation()
+        SetSpecialLayoutVisibility.init(setSpecialLayoutVisibility())
+        setupBottomNavigation()
     }
 
-    private fun setUpBottomNavigation() {
+    private fun setupBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.song -> NavigationManager.navigateToFragment(DefaultFragments.SONG_FRAGMENT)

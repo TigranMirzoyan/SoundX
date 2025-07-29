@@ -9,9 +9,10 @@ interface YoutubeApi {
     @GET("search")
     suspend fun searchVideos(
         @Query("part") part: String = "snippet",
-        @Query("maxResults") maxResults: Int = 10,
         @Query("q") query: String,
         @Query("type") type: String = "video",
+        @Query("videoCategoryId") videoCategoryId: String = "10",
+        @Query("maxResults") maxResults: Int = 10,
         @Query("key") apiKey: String = BuildConfig.API_KEY
-    ) : YouTubeResponse
+    ): YouTubeResponse
 }

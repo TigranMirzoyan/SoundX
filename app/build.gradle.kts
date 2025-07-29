@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.bundles.lifecycle)
     implementation(libs.glide)
 
+    implementation(libs.bundles.youtube.player)
+    implementation(libs.new.pipe)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

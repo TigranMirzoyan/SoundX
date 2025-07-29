@@ -3,11 +3,11 @@ package com.soundx.view.fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soundx.R
 import com.soundx.databinding.FragmentSearchBinding
+import com.soundx.util.DefaultFragments
 import com.soundx.util.NavigationManager
 import com.soundx.util.SpecialFragments
 import com.soundx.util.YouTubeVideo
@@ -26,39 +27,36 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: MusicViewModel
     private val searchHandler = Handler(Looper.getMainLooper())
+    private var currentVideos: List<YouTubeVideo> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this)[MusicViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[MusicViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureRecyclerView()
-        configureSearchView()
+        setupRecyclerView()
+        setupSearchView()
+        setupBackButtonClick()
     }
 
-    private fun configureRecyclerView() {
+    private fun setupRecyclerView() {
         val adapter = SearchVideosAdapter(setItemOnClickListener())
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
         viewModel.searchVideos.observe(viewLifecycleOwner) { videos ->
             adapter.submitList(videos)
-            videos.forEach {
-                Log.d(
-                    "SearchResult",
-                    "title = ${it.title}, creator = ${it.channelTitle}"
-                )
-            }
+            currentVideos = videos
         }
     }
 
-    private fun configureSearchView() {
+    private fun setupSearchView() {
         binding.searchView.setIconifiedByDefault(false)
         val searchEditText = binding.searchView
             .findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
@@ -69,34 +67,42 @@ class SearchFragment : Fragment() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { performSearch(it) }
+                query?.let {
+                    viewModel.clearSearchedVideos()
+                    performSearch(it)
+                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 searchHandler.removeCallbacksAndMessages(null)
                 searchHandler.postDelayed({
-                    if (newText.isNullOrEmpty()) {
-                        viewModel.clearSearchedVideos()
-                    } else {
-                        performSearch(newText)
-                    }
-                }, 200)
+                    viewModel.clearSearchedVideos()
+                    if (!newText.isNullOrEmpty()) performSearch(newText)
+
+                }, 256)
                 return true
             }
         })
     }
 
-    private fun setItemOnClickListener(): (YouTubeVideo) -> Unit = { video ->
-        val bundle = Bundle().apply {
-            putString("videoId", video.videoId)
-            putString("thumbnail", video.thumbnail)
-        }
-
-        NavigationManager.navigateToFragment(SpecialFragments.VIEW_MUSIC_VIDEO_FRAGMENT, bundle)
+    private fun setItemOnClickListener(): (Int) -> Unit = { position ->
+        viewModel.selectVideo(position)
+        NavigationManager.navigateToFragment(SpecialFragments.YOUTUBE_PLAYER_FRAGMENT)
     }
 
     private fun performSearch(query: String) {
         viewModel.searchVideosFromYoutube(query)
+    }
+
+    private fun setupBackButtonClick() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    NavigationManager.navigateToFragment(DefaultFragments.SONG_FRAGMENT)
+                }
+            }
+        )
     }
 }

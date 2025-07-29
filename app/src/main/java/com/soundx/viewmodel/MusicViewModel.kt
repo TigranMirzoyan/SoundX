@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 
 class MusicViewModel(application: Application) : AndroidViewModel(application) {
     private val _searchVideos = MutableLiveData<List<YouTubeVideo>>()
+    private val _selectedVideoPosition = MutableLiveData<Int>()
     val searchVideos: LiveData<List<YouTubeVideo>> get() = _searchVideos
+    val selectedVideoPosition: LiveData<Int> get() = _selectedVideoPosition
 
     fun searchVideosFromYoutube(query: String) = viewModelScope.launch {
         try {
@@ -22,7 +24,6 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
                     it.id.videoId,
                     it.snippet.title,
                     it.snippet.channelTitle,
-                    it.snippet.thumbnails.medium.url
                 )
             })
         } catch (e: Exception) {
@@ -33,5 +34,9 @@ class MusicViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearSearchedVideos() {
         _searchVideos.postValue(emptyList())
+    }
+
+    fun selectVideo(position: Int) {
+        _selectedVideoPosition.value = position
     }
 }

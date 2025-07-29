@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.soundx.R
 import com.soundx.databinding.SearchVideoMusicItemBinding
 import com.soundx.util.YouTubeVideo
 
-class SearchVideosAdapter(private val onItemClicked: (YouTubeVideo) -> Unit) :
+class SearchVideosAdapter(private val onItemClicked: (Int) -> Unit) :
     ListAdapter<YouTubeVideo, SearchVideosAdapter.YouTubeVideoViewHolder>(YouTubeVideoDiffCallBack) {
 
     override fun onCreateViewHolder(
@@ -29,7 +30,7 @@ class SearchVideosAdapter(private val onItemClicked: (YouTubeVideo) -> Unit) :
         holder.bind(video)
 
         holder.itemView.setOnClickListener {
-            onItemClicked(video)
+            onItemClicked(position)
         }
     }
 
@@ -39,13 +40,14 @@ class SearchVideosAdapter(private val onItemClicked: (YouTubeVideo) -> Unit) :
             binding.title.text = video.title
             binding.creator.text = video.channelTitle
 
+            val thumbnailUrl = "https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg"
             Glide.with(binding.thumbnail.context)
-                .load(video.thumbnail)
-                .centerCrop()
+                .load(thumbnailUrl)
+                .placeholder(R.drawable.ic_music_default)
+                .error(R.drawable.ic_error)
                 .into(binding.thumbnail)
         }
     }
-
 
     object YouTubeVideoDiffCallBack : DiffUtil.ItemCallback<YouTubeVideo>() {
         override fun areItemsTheSame(oldItem: YouTubeVideo, newItem: YouTubeVideo): Boolean {

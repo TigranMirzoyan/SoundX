@@ -7,5 +7,5 @@ enum class DefaultFragments {
 }
 
 enum class SpecialFragments {
-    VIEW_MUSIC_VIDEO_FRAGMENT
+    YOUTUBE_PLAYER_FRAGMENT
 }

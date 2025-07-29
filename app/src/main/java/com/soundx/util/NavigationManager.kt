@@ -7,7 +7,7 @@ import com.soundx.R
 import com.soundx.view.fragment.PlaylistFragment
 import com.soundx.view.fragment.SearchFragment
 import com.soundx.view.fragment.SongFragment
-import com.soundx.view.fragment.ViewMusicVideoFragment
+import com.soundx.view.fragment.YoutubePlayer
 
 class NavigationManager private constructor(private val fragmentManager: FragmentManager) {
     companion object {
@@ -23,25 +23,23 @@ class NavigationManager private constructor(private val fragmentManager: Fragmen
         }
 
         fun navigateToFragment(fragment: Enum<*>, bundle: Bundle? = null) {
-            if (navigationManager == null) throw IllegalStateException("NavigationManager isn't initialized")
+            requireNotNull(navigationManager) { "${NavigationManager::class.simpleName} isn't initialized" }
 
             when (fragment) {
                 is DefaultFragments -> {
                     navigationManager?.replaceFragment(fragment, bundle)
-                    SpecialLayoutVisibility.gone()
+                    SetSpecialLayoutVisibility.gone()
                 }
 
                 is SpecialFragments -> {
                     navigationManager?.replaceFragment(fragment, bundle)
-                    SpecialLayoutVisibility.visible()
+                    SetSpecialLayoutVisibility.visible()
                 }
 
                 else -> throw IllegalArgumentException("Unsupported enum type ${fragment::class.simpleName}")
             }
         }
     }
-
-    private var currentFragment: Fragment
 
     private val defaultFragmentMap = mapOf(
         DefaultFragments.SONG_FRAGMENT to SongFragment(),
@@ -50,8 +48,9 @@ class NavigationManager private constructor(private val fragmentManager: Fragmen
     )
 
     private val specialFragmentMap = mapOf(
-        SpecialFragments.VIEW_MUSIC_VIDEO_FRAGMENT to ViewMusicVideoFragment()
+        SpecialFragments.YOUTUBE_PLAYER_FRAGMENT to YoutubePlayer()
     )
+    private var currentFragment: Fragment
 
     init {
         fragmentManager.beginTransaction().apply {
@@ -63,28 +62,39 @@ class NavigationManager private constructor(private val fragmentManager: Fragmen
         fragmentManager.beginTransaction().show(currentFragment).commit()
     }
 
-    private fun <T> replaceFragment(
-        fragment: T,
-        bundle: Bundle?
-    ) where T : Enum<T> {
-
-        val newFragment = when (fragment) {
-            is DefaultFragments -> defaultFragmentMap[fragment]
-            is SpecialFragments -> specialFragmentMap[fragment]
-            else -> null
-        }
-        newFragment?.arguments = bundle
-
-        if (currentFragment == newFragment || newFragment == null) return
-
+    private fun replaceFragment(fragment: DefaultFragments, bundle: Bundle?) {
         val transaction = fragmentManager.beginTransaction()
+        val newFragment = defaultFragmentMap[fragment]
+
+        requireNotNull(newFragment) { "Unsupported fragment type ${fragment::class.simpleName}" }
+        if (currentFragment == newFragment) return
+
         transaction.hide(currentFragment)
+        newFragment.arguments = bundle
         currentFragment = newFragment
 
-        if (!currentFragment.isAdded) transaction.add(
-            if (fragment is SpecialFragments) R.id.special_frameLayout else R.id.default_frameLayout,
-            currentFragment
+        if (!currentFragment.isAdded) transaction.add(R.id.default_frameLayout, currentFragment)
+
+        transaction.show(currentFragment).commitNow()
+    }
+
+    private fun replaceFragment(fragment: SpecialFragments, bundle: Bundle?) {
+        val transaction = fragmentManager.beginTransaction()
+        val newFragment = specialFragmentMap[fragment]
+
+        requireNotNull(newFragment) { "Unsupported fragment type ${fragment::class.simpleName}" }
+        if (currentFragment == newFragment) return
+
+        transaction.hide(currentFragment)
+        newFragment.arguments = bundle
+        currentFragment = newFragment
+
+        transaction.setCustomAnimations(
+            R.anim.slide_in_up,
+            R.anim.slide_out_down
         )
+        if (!currentFragment.isAdded) transaction.add(R.id.special_frameLayout, currentFragment)
+
         transaction.show(currentFragment).commitNow()
     }
 }

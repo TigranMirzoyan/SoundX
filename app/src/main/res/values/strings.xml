@@ -7,5 +7,13 @@
 
     <string name="recycler_view_search_video_music_image">Thumbnail</string>
     <string name="recycler_view_search_video_music_heading">Search</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="fragment_youtube_player_minimize">Minimize</string>
+    <string name="fragment_youtube_player_previous_video">Previous Video</string>
+    <string name="fragment_youtube_player_play_video">Play</string>
+    <string name="fragment_youtube_player_pause_video">Pause</string>
+    <string name="fragment_youtube_player_next_video">Next Video</string>
+    <string name="fragment_youtube_player_video_image">Thumbnail</string>
+    <string name="fragment_youtube_player_video_title">Loading Title…</string>
+    <string name="fragment_youtube_player_video_channel_title">Loading Channel…</string>
 </resources>
