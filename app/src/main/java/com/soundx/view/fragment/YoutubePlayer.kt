@@ -47,8 +47,12 @@ class YoutubePlayer : SpecialFragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
 
-        if (!hidden) loadCurrentVideo()
-        else backPressedCallback?.isEnabled = false
+        if (!hidden) {
+            loadCurrentVideo()
+        } else {
+            backPressedCallback?.isEnabled = false
+        }
+
         if (hidden && ::youTubePlayer.isInitialized) {
             currentVideoIndex = -1
             youTubePlayer.pause()
@@ -191,17 +195,11 @@ class YoutubePlayer : SpecialFragment() {
         val maxResThumbnailUrl = "https://img.youtube.com/vi/$videoId/maxresdefault.jpg"
         val hqThumbnailUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg"
 
-        Glide.with(this)
-            .load(maxResThumbnailUrl)
-            .centerCrop()
-            .placeholder(R.drawable.ic_music_default)
-            .error(
-                Glide.with(this)
-                    .load(hqThumbnailUrl)
-                    .centerCrop()
+        Glide.with(this).load(maxResThumbnailUrl).centerCrop()
+            .placeholder(R.drawable.ic_music_default).error(
+                Glide.with(this).load(hqThumbnailUrl).centerCrop()
                     .error(R.drawable.ic_music_default)
-            )
-            .into(binding.thumbnail)
+            ).into(binding.thumbnail)
     }
 
     private fun updateNavigationButtons() {
