@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBarListener
@@ -13,12 +12,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstan
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
+import com.soundx.R
 import com.soundx.databinding.FragmentYoutubePlayerBinding
-import com.soundx.util.DefaultFragments
 import com.soundx.util.NavigationManager
+import com.soundx.appfragment.SpecialFragment
 import com.soundx.viewmodel.MusicViewModel
 
-class YoutubePlayer : Fragment() {
+class YoutubePlayer : SpecialFragment() {
     private lateinit var binding: FragmentYoutubePlayerBinding
     private lateinit var youTubePlayer: YouTubePlayer
     private lateinit var viewModel: MusicViewModel
@@ -26,10 +26,10 @@ class YoutubePlayer : Fragment() {
     private var videoIds = mutableListOf<String>()
     private var titles = mutableListOf<String>()
     private var channelTitles = mutableListOf<String>()
+    private var backPressedCallback: OnBackPressedCallback? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentYoutubePlayerBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[MusicViewModel::class.java]
@@ -39,13 +39,16 @@ class YoutubePlayer : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModel()
         setUpYoutubePlayer()
+        observeViewModel()
         setupBackButtonClick()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
+
+        if (!hidden) loadCurrentVideo()
+        else backPressedCallback?.isEnabled = false
         if (hidden && ::youTubePlayer.isInitialized) {
             currentVideoIndex = -1
             youTubePlayer.pause()
@@ -69,22 +72,15 @@ class YoutubePlayer : Fragment() {
     private fun observeVideoSelection() {
         viewModel.selectedVideoPosition.observe(viewLifecycleOwner) { position ->
             if (position !in videoIds.indices) return@observe
-            currentVideoIndex = position
 
-            check(::youTubePlayer.isInitialized) {"YouTubePlayer field is not Initialized "}
-            loadCurrentVideo()
+            currentVideoIndex = position
         }
     }
 
     private fun setUpYoutubePlayer() {
-        binding.youtubePlayerView.enableBackgroundPlayback(true)
         binding.youtubePlayerView.enableAutomaticInitialization = false
 
-        val options = IFramePlayerOptions.Builder()
-            .controls(0)
-            .rel(0)
-            .ivLoadPolicy(3)
-            .build()
+        val options = IFramePlayerOptions.Builder().controls(0).rel(0).ivLoadPolicy(3).build()
 
         binding.youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -95,8 +91,7 @@ class YoutubePlayer : Fragment() {
             }
 
             override fun onStateChange(
-                youTubePlayer: YouTubePlayer,
-                state: PlayerConstants.PlayerState
+                youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState
             ) {
                 updateUI(state)
             }
@@ -132,7 +127,7 @@ class YoutubePlayer : Fragment() {
             }
 
             minimize.setOnClickListener {
-                NavigationManager.navigateToFragment(DefaultFragments.SEARCH_FRAGMENT)
+                NavigationManager.navigateToFragment(SearchFragment::class)
             }
 
             nextVideoBtn.setOnClickListener {
@@ -173,6 +168,7 @@ class YoutubePlayer : Fragment() {
 
     private fun loadCurrentVideo() {
         if (currentVideoIndex >= videoIds.size || currentVideoIndex < 0) return
+        check(::youTubePlayer.isInitialized) { "YouTubePlayer field is not Initialized " }
 
         val videoId = videoIds[currentVideoIndex]
 
@@ -191,11 +187,20 @@ class YoutubePlayer : Fragment() {
     }
 
     private fun updateVideoThumbnail() {
-        val thumbnailUrl =
-            "https://img.youtube.com/vi/${videoIds[currentVideoIndex]}/maxresdefault.jpg"
+        val videoId = videoIds[currentVideoIndex]
+        val maxResThumbnailUrl = "https://img.youtube.com/vi/$videoId/maxresdefault.jpg"
+        val hqThumbnailUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg"
 
         Glide.with(this)
-            .load(thumbnailUrl)
+            .load(maxResThumbnailUrl)
+            .centerCrop()
+            .placeholder(R.drawable.ic_music_default)
+            .error(
+                Glide.with(this)
+                    .load(hqThumbnailUrl)
+                    .centerCrop()
+                    .error(R.drawable.ic_music_default)
+            )
             .into(binding.thumbnail)
     }
 
@@ -209,20 +214,19 @@ class YoutubePlayer : Fragment() {
     }
 
     private fun setupBackButtonClick() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    NavigationManager.navigateToFragment(DefaultFragments.SEARCH_FRAGMENT)
-                }
+        backPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavigationManager.navigateToFragment(SearchFragment::class)
             }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner, backPressedCallback!!
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (::binding.isInitialized) {
-            binding.youtubePlayerView.release()
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (!::binding.isInitialized) return
+        binding.youtubePlayerView.release()
     }
 }

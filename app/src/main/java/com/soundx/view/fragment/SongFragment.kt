@@ -1,13 +1,13 @@
 package com.soundx.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.soundx.R
+import com.soundx.appfragment.DefaultFragment
 
-class SongFragment : Fragment() {
+class SongFragment : DefaultFragment(){
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

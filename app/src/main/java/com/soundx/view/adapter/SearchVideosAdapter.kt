@@ -44,7 +44,7 @@ class SearchVideosAdapter(private val onItemClicked: (Int) -> Unit) :
             Glide.with(binding.thumbnail.context)
                 .load(thumbnailUrl)
                 .placeholder(R.drawable.ic_music_default)
-                .error(R.drawable.ic_error)
+                .error(R.drawable.ic_music_default)
                 .into(binding.thumbnail)
         }
     }

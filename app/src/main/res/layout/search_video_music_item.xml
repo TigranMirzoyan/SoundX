@@ -11,7 +11,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="8dp"
-        android:background="@color/black"
+        android:background="@color/deep"
         android:contentDescription="@string/recycler_view_search_video_music_image"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/roundImageView" />

@@ -13,8 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomNavigation"
-        android:layout_marginBottom="-48dp"
+        android:layout_marginBottom="-36dp"
         android:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/special_frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
@@ -23,16 +29,12 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/nav_background"
-        android:paddingBottom="8dp"
+        android:paddingBottom="2dp"
+        android:paddingTop="24dp"
         app:itemIconSize="32dp"
         app:itemIconTint="@drawable/nav_select_ic_color"
         app:itemPaddingBottom="0dp"
         app:itemTextColor="@drawable/nav_select_ic_color"
         app:menu="@menu/bottom_nav_menu" />
 
-    <FrameLayout
-        android:id="@+id/special_frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
 </RelativeLayout>

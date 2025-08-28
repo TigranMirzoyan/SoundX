@@ -16,3 +16,9 @@ data class YouTubeVideo(
     val title: String,
     val channelTitle: String
 )
+
+fun YouTubeItem.toYouTubeVideo() = YouTubeVideo(
+    videoId = this.id.videoId,
+    title = this.snippet.title,
+    channelTitle = this.snippet.channelTitle
+)

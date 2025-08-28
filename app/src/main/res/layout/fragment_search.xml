@@ -4,37 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/deep_light"
+    android:orientation="vertical"
     tools:context=".view.fragment.SearchFragment">
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="48dp"
-        android:layout_marginHorizontal="16dp"
-        android:textSize="32sp"
-        android:text="@string/recycler_view_search_video_music_heading"/>
+        android:text="@string/recycler_view_search_video_music_heading"
+        android:textColor="@color/white"
+        android:textSize="32sp" />
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/search_view_background"
-        app:queryHint="Songs, playlists or artists" />
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:clipToPadding="false"
-        android:paddingBottom="56dp"
-        tools:itemCount="10"
-        tools:listitem="@layout/search_video_music_item" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@drawable/search_view_background"
+            app:queryHint="Songs, playlists or artists" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingVertical="20dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/search_video_music_item" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@drawable/rv_top_blur_background"
+                android:contentDescription="@string/search_recycler_view_top_blur_image" />
+        </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

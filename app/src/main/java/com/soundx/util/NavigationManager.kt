@@ -1,100 +1,62 @@
 package com.soundx.util
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.soundx.R
+import com.soundx.appfragment.AppFragment
 import com.soundx.view.fragment.PlaylistFragment
 import com.soundx.view.fragment.SearchFragment
 import com.soundx.view.fragment.SongFragment
 import com.soundx.view.fragment.YoutubePlayer
+import kotlin.reflect.KClass
 
 class NavigationManager private constructor(private val fragmentManager: FragmentManager) {
-    companion object {
-        @Volatile
-        private var navigationManager: NavigationManager? = null
-
-        fun instance(fragmentManager: FragmentManager) {
-            if (navigationManager != null) return
-            synchronized(this) {
-                if (navigationManager != null) return
-                navigationManager = NavigationManager(fragmentManager)
-            }
-        }
-
-        fun navigateToFragment(fragment: Enum<*>, bundle: Bundle? = null) {
-            requireNotNull(navigationManager) { "${NavigationManager::class.simpleName} isn't initialized" }
-
-            when (fragment) {
-                is DefaultFragments -> {
-                    navigationManager?.replaceFragment(fragment, bundle)
-                    SetSpecialLayoutVisibility.gone()
-                }
-
-                is SpecialFragments -> {
-                    navigationManager?.replaceFragment(fragment, bundle)
-                    SetSpecialLayoutVisibility.visible()
-                }
-
-                else -> throw IllegalArgumentException("Unsupported enum type ${fragment::class.simpleName}")
-            }
-        }
-    }
-
-    private val defaultFragmentMap = mapOf(
-        DefaultFragments.SONG_FRAGMENT to SongFragment(),
-        DefaultFragments.PLAYLIST_FRAGMENT to PlaylistFragment(),
-        DefaultFragments.SEARCH_FRAGMENT to SearchFragment(),
-    )
-
-    private val specialFragmentMap = mapOf(
-        SpecialFragments.YOUTUBE_PLAYER_FRAGMENT to YoutubePlayer()
-    )
-    private var currentFragment: Fragment
+    private val fragmentMap = listOf(
+        SongFragment(),
+        PlaylistFragment(),
+        SearchFragment(),
+        YoutubePlayer(),
+    ).associateBy { it::class }
+    private var currentFragmentKey: KClass<out AppFragment> = SongFragment::class
 
     init {
         fragmentManager.beginTransaction().apply {
-            defaultFragmentMap.values.forEach { add(R.id.default_frameLayout, it).hide(it) }
-            specialFragmentMap.values.forEach { add(R.id.special_frameLayout, it).hide(it) }
+            fragmentMap.values.forEach { fragment ->
+                add(fragment.getFrameLayoutId(), fragment).hide(fragment)
+            }
+            show(fragmentMap.getValue(currentFragmentKey))
+        }.commit()
+    }
+
+    private fun switchFragment(newFragmentKey: KClass<out AppFragment>, bundle: Bundle?) {
+        if (currentFragmentKey == newFragmentKey) return
+
+        val currentFragment = fragmentMap.getValue(currentFragmentKey)
+        val newFragment = fragmentMap.getValue(newFragmentKey).apply { arguments = bundle }
+
+        fragmentManager.beginTransaction().apply {
+            newFragment.setupEnterAnimation(this)
+            currentFragment.setupExitAnimation(this)
+            hide(currentFragment).show(newFragment)
         }.commit()
 
-        currentFragment = defaultFragmentMap[DefaultFragments.SONG_FRAGMENT]!!
-        fragmentManager.beginTransaction().show(currentFragment).commit()
+        currentFragmentKey = newFragmentKey
+        newFragment.makeVisible()
     }
 
-    private fun replaceFragment(fragment: DefaultFragments, bundle: Bundle?) {
-        val transaction = fragmentManager.beginTransaction()
-        val newFragment = defaultFragmentMap[fragment]
+    companion object {
+        @Volatile
+        private var instance: NavigationManager? = null
 
-        requireNotNull(newFragment) { "Unsupported fragment type ${fragment::class.simpleName}" }
-        if (currentFragment == newFragment) return
+        fun init(fragmentManager: FragmentManager) {
+            synchronized(this) {
+                if (instance != null) return
+                instance = NavigationManager(fragmentManager)
+            }
+        }
 
-        transaction.hide(currentFragment)
-        newFragment.arguments = bundle
-        currentFragment = newFragment
-
-        if (!currentFragment.isAdded) transaction.add(R.id.default_frameLayout, currentFragment)
-
-        transaction.show(currentFragment).commitNow()
-    }
-
-    private fun replaceFragment(fragment: SpecialFragments, bundle: Bundle?) {
-        val transaction = fragmentManager.beginTransaction()
-        val newFragment = specialFragmentMap[fragment]
-
-        requireNotNull(newFragment) { "Unsupported fragment type ${fragment::class.simpleName}" }
-        if (currentFragment == newFragment) return
-
-        transaction.hide(currentFragment)
-        newFragment.arguments = bundle
-        currentFragment = newFragment
-
-        transaction.setCustomAnimations(
-            R.anim.slide_in_up,
-            R.anim.slide_out_down
-        )
-        if (!currentFragment.isAdded) transaction.add(R.id.special_frameLayout, currentFragment)
-
-        transaction.show(currentFragment).commitNow()
+        fun navigateToFragment(fragment: KClass<out AppFragment>, bundle: Bundle? = null) {
+            instance?.switchFragment(fragment, bundle)
+                ?: error("${NavigationManager::class.simpleName} is not initialized.")
+        }
     }
 }

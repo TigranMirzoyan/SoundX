@@ -53,10 +53,10 @@
 
         <ImageView
             android:id="@+id/thumbnail"
+            android:background="@color/deep"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="@string/fragment_youtube_player_video_image"
-            android:scaleType="centerCrop" />
+            android:contentDescription="@string/fragment_youtube_player_video_image" />
 
     </androidx.cardview.widget.CardView>
 

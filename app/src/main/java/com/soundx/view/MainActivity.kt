@@ -2,6 +2,7 @@ package com.soundx.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,11 +10,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.soundx.R
 import com.soundx.databinding.ActivityMainBinding
-import com.soundx.util.DefaultFragments
 import com.soundx.util.NavigationManager
-import com.soundx.util.SetSpecialLayoutVisibility
+import com.soundx.appfragment.SpecialFragmentContainer
+import com.soundx.view.fragment.PlaylistFragment
+import com.soundx.view.fragment.SearchFragment
+import com.soundx.view.fragment.SongFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SpecialFragmentContainer {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        NavigationManager.instance(supportFragmentManager)
+        NavigationManager.init(supportFragmentManager)
         setContentView(binding.root)
 
         var keyboardWasVisible = false
@@ -39,23 +42,32 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        SetSpecialLayoutVisibility.init(setSpecialLayoutVisibility())
+        setupBackButtonClick()
         setupBottomNavigation()
     }
 
     private fun setupBottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.song -> NavigationManager.navigateToFragment(DefaultFragments.SONG_FRAGMENT)
-                R.id.playlist -> NavigationManager.navigateToFragment(DefaultFragments.PLAYLIST_FRAGMENT)
-                R.id.search -> NavigationManager.navigateToFragment(DefaultFragments.SEARCH_FRAGMENT)
+                R.id.song -> NavigationManager.navigateToFragment(SongFragment::class)
+                R.id.playlist -> NavigationManager.navigateToFragment(PlaylistFragment::class)
+                R.id.search -> NavigationManager.navigateToFragment(SearchFragment::class)
             }
             true
         }
     }
 
-    private fun setSpecialLayoutVisibility(): (Boolean) -> Unit = { bool ->
-        binding.specialFrameLayout.visibility = if (bool) View.VISIBLE else View.GONE
-        binding.bottomNavigation.visibility = if (!bool) View.VISIBLE else View.GONE
+    private fun setupBackButtonClick() {
+        this.onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                NavigationManager.navigateToFragment(SongFragment::class)
+                binding.bottomNavigation.selectedItemId = R.id.song
+            }
+        })
+    }
+
+    override fun setSpecialLayoutVisibility(state: Boolean) {
+        binding.specialFrameLayout.visibility = if (state) View.VISIBLE else View.GONE
+        binding.bottomNavigation.visibility = if (!state) View.VISIBLE else View.GONE
     }
 }

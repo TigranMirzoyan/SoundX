@@ -7,31 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soundx.R
 import com.soundx.databinding.FragmentSearchBinding
-import com.soundx.util.DefaultFragments
+import com.soundx.appfragment.DefaultFragment
 import com.soundx.util.NavigationManager
-import com.soundx.util.SpecialFragments
 import com.soundx.util.YouTubeVideo
 import com.soundx.view.adapter.SearchVideosAdapter
 import com.soundx.viewmodel.MusicViewModel
 
-
-class SearchFragment : Fragment() {
+class SearchFragment : DefaultFragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: MusicViewModel
     private val searchHandler = Handler(Looper.getMainLooper())
     private var currentVideos: List<YouTubeVideo> = emptyList()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(requireActivity())[MusicViewModel::class.java]
@@ -42,7 +37,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSearchView()
-        setupBackButtonClick()
     }
 
     private fun setupRecyclerView() {
@@ -58,12 +52,14 @@ class SearchFragment : Fragment() {
 
     private fun setupSearchView() {
         binding.searchView.setIconifiedByDefault(false)
-        val searchEditText = binding.searchView
-            .findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        searchEditText
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        searchEditText
-            .setHintTextColor(ContextCompat.getColor(requireContext(), R.color.brown_light))
+        val searchEditText =
+            binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        searchEditText.setHintTextColor(
+            ContextCompat.getColor(
+                requireContext(), R.color.brown_light
+            )
+        )
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -88,21 +84,10 @@ class SearchFragment : Fragment() {
 
     private fun setItemOnClickListener(): (Int) -> Unit = { position ->
         viewModel.selectVideo(position)
-        NavigationManager.navigateToFragment(SpecialFragments.YOUTUBE_PLAYER_FRAGMENT)
+        NavigationManager.navigateToFragment(YoutubePlayer::class)
     }
 
     private fun performSearch(query: String) {
         viewModel.searchVideosFromYoutube(query)
-    }
-
-    private fun setupBackButtonClick() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    NavigationManager.navigateToFragment(DefaultFragments.SONG_FRAGMENT)
-                }
-            }
-        )
     }
 }

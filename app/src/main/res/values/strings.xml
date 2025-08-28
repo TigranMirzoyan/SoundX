@@ -4,6 +4,8 @@
     <string name="nav_menu_song">Songs</string>
     <string name="nav_menu_playlist">Playlists</string>
     <string name="nav_menu_search">Search</string>
+    
+    <string name="search_recycler_view_top_blur_image">Blur</string>
 
     <string name="recycler_view_search_video_music_image">Thumbnail</string>
     <string name="recycler_view_search_video_music_heading">Search</string>
