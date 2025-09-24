@@ -12,7 +12,7 @@ interface YoutubeApi {
         @Query("q") query: String,
         @Query("type") type: String = "video",
         @Query("videoCategoryId") videoCategoryId: String = "10",
-        @Query("maxResults") maxResults: Int = 10,
+        @Query("maxResults") maxResults: Int = 15,
         @Query("key") apiKey: String = BuildConfig.API_KEY
     ): YouTubeResponse
 }

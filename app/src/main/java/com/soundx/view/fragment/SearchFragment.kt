@@ -15,15 +15,15 @@ import com.soundx.R
 import com.soundx.databinding.FragmentSearchBinding
 import com.soundx.appfragment.DefaultFragment
 import com.soundx.util.NavigationManager
-import com.soundx.util.YouTubeVideo
-import com.soundx.view.adapter.SearchVideosAdapter
+import com.soundx.util.YouTubeSong
+import com.soundx.view.adapter.SearchMusicAdapter
 import com.soundx.viewmodel.MusicViewModel
 
 class SearchFragment : DefaultFragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: MusicViewModel
     private val searchHandler = Handler(Looper.getMainLooper())
-    private var currentVideos: List<YouTubeVideo> = emptyList()
+    private var currentSongs: List<YouTubeSong> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -40,13 +40,14 @@ class SearchFragment : DefaultFragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = SearchVideosAdapter(setItemOnClickListener())
+        val adapter = SearchMusicAdapter(setItemOnClickListener())
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        viewModel.searchVideos.observe(viewLifecycleOwner) { videos ->
-            adapter.submitList(videos)
-            currentVideos = videos
+        viewModel.searchSongs.observe(viewLifecycleOwner) { songs ->
+            binding.searchingSongs.visibility = if (!songs.isEmpty()) View.VISIBLE else View.GONE
+            adapter.submitList(songs)
+            currentSongs = songs
         }
     }
 
@@ -54,10 +55,17 @@ class SearchFragment : DefaultFragment() {
         binding.searchView.setIconifiedByDefault(false)
         val searchEditText =
             binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        searchEditText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+
+        searchEditText.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.primary_text_color
+            )
+        )
+
         searchEditText.setHintTextColor(
             ContextCompat.getColor(
-                requireContext(), R.color.brown_light
+                requireContext(), R.color.primary_hint_color
             )
         )
 
@@ -88,6 +96,6 @@ class SearchFragment : DefaultFragment() {
     }
 
     private fun performSearch(query: String) {
-        viewModel.searchVideosFromYoutube(query)
+        viewModel.searchMusicFromYoutube(query)
     }
 }

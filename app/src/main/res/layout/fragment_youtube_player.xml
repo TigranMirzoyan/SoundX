@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/deep_light"
+    android:background="@color/background_color"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".view.fragment.YoutubePlayer">
@@ -31,52 +31,43 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="16dp"
             android:text="@string/app_name"
-            android:textColor="@color/green"
+            android:textColor="@color/primary_color"
             android:textSize="32sp" />
 
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/youtube_player_card_view"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginVertical="16dp"
-        app:cardCornerRadius="32dp"
-        app:cardElevation="8dp">
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/top_bar"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:background="@color/deep"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/fragment_youtube_player_video_image" />
-
-    </androidx.cardview.widget.CardView>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:background="@color/background_color"
+        android:contentDescription="@string/fragment_youtube_player_video_image"
+        app:shapeAppearanceOverlay="@style/squircleImageView" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="300dp"
+        android:layout_width="312dp"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
+        android:layout_marginTop="32dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:text="@string/fragment_youtube_player_video_title"
-        android:textColor="@color/white"
+        android:textColor="@color/primary_text_color"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/channel_title"
-        android:layout_width="300dp"
+        android:layout_width="312dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ellipsize="marquee"
@@ -86,16 +77,16 @@
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:text="@string/fragment_youtube_player_video_channel_title"
-        android:textColor="@color/brown_light"
+        android:textColor="@color/primary_hint_color"
         android:textSize="12sp" />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBar
         android:id="@+id/youtube_player_seekbar"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginVertical="8dp"
-        app:color="@color/green"
+        app:color="@color/primary_color"
         app:fontSize="16sp" />
 
     <LinearLayout

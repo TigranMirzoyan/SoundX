@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/rv_search_video_item_background">
+    android:layout_marginBottom="8dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/thumbnail"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:background="@color/deep"
+        android:background="@color/background_color"
         android:contentDescription="@string/recycler_view_search_video_music_image"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/roundImageView" />
+        app:shapeAppearanceOverlay="@style/squircleImageViewRV" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginVertical="4dp"
+        android:layout_marginEnd="4dp"
         android:layout_toEndOf="@+id/thumbnail"
         android:orientation="vertical">
 
@@ -30,17 +29,17 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textColor="@color/primary_text_color"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/creator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/brown_light"
-            android:textSize="16sp" />
+            android:textColor="@color/primary_hint_color"
+            android:textSize="12sp" />
     </LinearLayout>
 </RelativeLayout>

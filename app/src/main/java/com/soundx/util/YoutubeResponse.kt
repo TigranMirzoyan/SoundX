@@ -11,13 +11,13 @@ data class YouTubeSnippet(
     val channelTitle: String,
 )
 
-data class YouTubeVideo(
+data class YouTubeSong(
     val videoId: String,
     val title: String,
     val channelTitle: String
 )
 
-fun YouTubeItem.toYouTubeVideo() = YouTubeVideo(
+fun YouTubeItem.toYouTubeSong() = YouTubeSong(
     videoId = this.id.videoId,
     title = this.snippet.title,
     channelTitle = this.snippet.channelTitle

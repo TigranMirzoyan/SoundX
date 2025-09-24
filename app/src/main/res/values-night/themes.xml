@@ -1,8 +1,8 @@
 <resources>
 
     <style name="Base.Theme.SoundX" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:navigationBarColor">@color/deep</item>
-        <item name="android:statusBarColor">@color/deep</item>
+        <item name="android:navigationBarColor">@color/background_color</item>
+        <item name="android:statusBarColor">@color/background_color</item>
     </style>
 
     <style name="Theme.SoundX" parent="Base.Theme.SoundX" />

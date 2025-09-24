@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/deep_light"
+    android:background="@color/background_color"
     tools:context=".view.MainActivity">
 
     <FrameLayout
@@ -29,11 +29,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/nav_background"
+        android:paddingTop="8dp"
         android:paddingBottom="2dp"
-        android:paddingTop="24dp"
-        app:itemIconSize="32dp"
+        app:itemIconSize="26dp"
         app:itemIconTint="@drawable/nav_select_ic_color"
         app:itemPaddingBottom="0dp"
+        app:itemRippleColor="@null"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Text"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView.Text"
         app:itemTextColor="@drawable/nav_select_ic_color"
         app:menu="@menu/bottom_nav_menu" />
 

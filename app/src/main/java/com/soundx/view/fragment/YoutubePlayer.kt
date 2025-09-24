@@ -49,6 +49,7 @@ class YoutubePlayer : SpecialFragment() {
 
         if (!hidden) {
             loadCurrentVideo()
+            backPressedCallback?.isEnabled = true
         } else {
             backPressedCallback?.isEnabled = false
         }
@@ -65,7 +66,7 @@ class YoutubePlayer : SpecialFragment() {
     }
 
     private fun observeSearchVideos() {
-        viewModel.searchVideos.observe(viewLifecycleOwner) { videos ->
+        viewModel.searchSongs.observe(viewLifecycleOwner) { videos ->
             if (videos.isEmpty()) return@observe
             videoIds = videos.map { it.videoId }.toMutableList()
             titles = videos.map { it.title }.toMutableList()
@@ -74,7 +75,7 @@ class YoutubePlayer : SpecialFragment() {
     }
 
     private fun observeVideoSelection() {
-        viewModel.selectedVideoPosition.observe(viewLifecycleOwner) { position ->
+        viewModel.selectedSongPosition.observe(viewLifecycleOwner) { position ->
             if (position !in videoIds.indices) return@observe
 
             currentVideoIndex = position
@@ -84,7 +85,11 @@ class YoutubePlayer : SpecialFragment() {
     private fun setUpYoutubePlayer() {
         binding.youtubePlayerView.enableAutomaticInitialization = false
 
-        val options = IFramePlayerOptions.Builder().controls(0).rel(0).ivLoadPolicy(3).build()
+        val options = IFramePlayerOptions.Builder(requireContext())
+            .controls(0)
+            .rel(0)
+            .ivLoadPolicy(3)
+            .build()
 
         binding.youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -195,11 +200,15 @@ class YoutubePlayer : SpecialFragment() {
         val maxResThumbnailUrl = "https://img.youtube.com/vi/$videoId/maxresdefault.jpg"
         val hqThumbnailUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg"
 
-        Glide.with(this).load(maxResThumbnailUrl).centerCrop()
-            .placeholder(R.drawable.ic_music_default).error(
-                Glide.with(this).load(hqThumbnailUrl).centerCrop()
+        Glide.with(this)
+            .load(maxResThumbnailUrl)
+            .placeholder(R.drawable.ic_music_default)
+                .error(Glide.with(this)
+                    .load(hqThumbnailUrl)
                     .error(R.drawable.ic_music_default)
-            ).into(binding.thumbnail)
+                    .centerCrop())
+            .centerCrop()
+            .into(binding.thumbnail)
     }
 
     private fun updateNavigationButtons() {

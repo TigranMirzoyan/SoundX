@@ -1,25 +1,25 @@
 [versions]
-agp = "8.12.1"
-kotlin = "2.2.10"
+agp = "8.13.0"
+kotlin = "2.2.20"
 
 coreKtx = "1.17.0"
 junit = "4.13.2"
 
-material = "1.12.0"
+material = "1.13.0"
 
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 appcompat = "1.7.1"
-activity = "1.10.1"
+activity = "1.11.0"
 constraintlayout = "2.2.1"
 
 retrofit = "3.0.0"
 
-lifecycle = "2.9.3"
+lifecycle = "2.9.4"
 
-glide = "4.16.0"
+glide = "5.0.5"
 
-yplayer = "12.1.2"
+yplayer = "13.0.0"
 newpipe = "0.24.6"
 
 [libraries]

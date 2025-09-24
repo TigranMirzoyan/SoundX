@@ -7,31 +7,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.soundx.model.youtube.RetrofitYoutube
-import com.soundx.util.YouTubeVideo
-import com.soundx.util.toYouTubeVideo
+import com.soundx.util.YouTubeSong
+import com.soundx.util.toYouTubeSong
 import kotlinx.coroutines.launch
 
 class MusicViewModel(application: Application) : AndroidViewModel(application) {
-    private val _searchVideos = MutableLiveData<List<YouTubeVideo>>()
-    private val _selectedVideoPosition = MutableLiveData<Int>()
-    val searchVideos: LiveData<List<YouTubeVideo>> = _searchVideos
-    val selectedVideoPosition: LiveData<Int> = _selectedVideoPosition
+    private val _searchSongs = MutableLiveData<List<YouTubeSong>>()
+    private val _selectedSongPosition = MutableLiveData<Int>()
+    val searchSongs: LiveData<List<YouTubeSong>> = _searchSongs
+    val selectedSongPosition: LiveData<Int> = _selectedSongPosition
 
-    fun searchVideosFromYoutube(query: String) = viewModelScope.launch {
+    fun searchMusicFromYoutube(query: String) = viewModelScope.launch {
         runCatching {
             RetrofitYoutube.youtubeApi.searchVideos(query = query)
         }.onSuccess { response ->
-            _searchVideos.postValue(response.items.map { it.toYouTubeVideo() })
+            _searchSongs.postValue(response.items.map { it.toYouTubeSong() })
         }.onFailure { e ->
             Log.e("YouTubeAPI", "Error searching videos", e)
         }
     }
 
     fun clearSearchedVideos() {
-        _searchVideos.postValue(emptyList())
+        _searchSongs.postValue(emptyList())
     }
 
     fun selectVideo(position: Int) {
-        _selectedVideoPosition.value = position
+        _selectedSongPosition.value = position
     }
 }
