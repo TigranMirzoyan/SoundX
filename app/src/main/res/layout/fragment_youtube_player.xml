@@ -7,7 +7,7 @@
     android:background="@color/background_color"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.fragment.YoutubePlayer">
+    tools:context=".view.fragment.other.SongPlayer">
 
     <RelativeLayout
         android:id="@+id/top_bar"
@@ -22,7 +22,7 @@
             android:layout_marginVertical="16dp"
             android:layout_marginStart="16dp"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/fragment_youtube_player_minimize"
+            android:contentDescription="@string/fragment_song_player_minimize"
             android:src="@drawable/ic_minimize_player" />
 
         <TextView
@@ -47,7 +47,7 @@
         android:layout_width="280dp"
         android:layout_height="280dp"
         android:background="@color/background_color"
-        android:contentDescription="@string/fragment_youtube_player_video_image"
+        android:contentDescription="@string/fragment_song_player_video_image"
         app:shapeAppearanceOverlay="@style/squircleImageView" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:singleLine="true"
-        android:text="@string/fragment_youtube_player_video_title"
+        android:text="@string/fragment_song_player_video_title"
         android:textColor="@color/primary_text_color"
         android:textSize="24sp" />
 
@@ -76,7 +76,7 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:singleLine="true"
-        android:text="@string/fragment_youtube_player_video_channel_title"
+        android:text="@string/fragment_song_player_video_channel_title"
         android:textColor="@color/primary_hint_color"
         android:textSize="12sp" />
 
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/fragment_youtube_player_previous_video"
+            android:contentDescription="@string/fragment_song_player_previous_video"
             android:src="@drawable/ic_previous_video" />
 
         <ImageButton
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/fragment_youtube_player_play_video"
+            android:contentDescription="@string/fragment_song_player_play_video"
             android:src="@drawable/ic_play_video" />
 
         <ImageButton
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/fragment_youtube_player_pause_video"
+            android:contentDescription="@string/fragment_song_player_pause_video"
             android:src="@drawable/ic_pause_video"
             android:visibility="gone" />
 
@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/fragment_youtube_player_next_video"
+            android:contentDescription="@string/fragment_song_player_next_video"
             android:src="@drawable/ic_next_video" />
     </LinearLayout>
 </LinearLayout>

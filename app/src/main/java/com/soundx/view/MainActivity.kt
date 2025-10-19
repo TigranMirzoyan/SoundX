@@ -12,9 +12,9 @@ import com.soundx.R
 import com.soundx.databinding.ActivityMainBinding
 import com.soundx.util.NavigationManager
 import com.soundx.appfragment.SpecialFragmentContainer
-import com.soundx.view.fragment.PlaylistFragment
-import com.soundx.view.fragment.SearchFragment
-import com.soundx.view.fragment.SongFragment
+import com.soundx.view.fragment.main.PlaylistFragment
+import com.soundx.view.fragment.main.SearchFragment
+import com.soundx.view.fragment.main.SongFragment
 
 class MainActivity : AppCompatActivity(), SpecialFragmentContainer {
     private lateinit var binding: ActivityMainBinding

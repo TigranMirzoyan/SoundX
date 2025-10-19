@@ -6,17 +6,18 @@
     <string name="nav_menu_search">Search</string>
     
     <string name="search_recycler_view_top_blur_image">Blur</string>
-    <string name="search_link_image">Link</string>
+    <string name="search_link_image">Song Link</string>
 
-    <string name="recycler_view_search_video_music_image">Thumbnail</string>
-    <string name="recycler_view_search_video_music_heading">Search</string>
+    <string name="recycler_view_search_song_image">Thumbnail</string>
+    <string name="recycler_view_search_song_heading">Search</string>
+    <string name="recycler_view_item_close">Delete</string>
 
-    <string name="fragment_youtube_player_minimize">Minimize</string>
-    <string name="fragment_youtube_player_previous_video">Previous Video</string>
-    <string name="fragment_youtube_player_play_video">Play</string>
-    <string name="fragment_youtube_player_pause_video">Pause</string>
-    <string name="fragment_youtube_player_next_video">Next Video</string>
-    <string name="fragment_youtube_player_video_image">Thumbnail</string>
-    <string name="fragment_youtube_player_video_title">Loading Title…</string>
-    <string name="fragment_youtube_player_video_channel_title">Loading Channel…</string>
+    <string name="fragment_song_player_minimize">Minimize</string>
+    <string name="fragment_song_player_previous_video">Previous Video</string>
+    <string name="fragment_song_player_play_video">Play</string>
+    <string name="fragment_song_player_pause_video">Pause</string>
+    <string name="fragment_song_player_next_video">Next Video</string>
+    <string name="fragment_song_player_video_image">Thumbnail</string>
+    <string name="fragment_song_player_video_title">Loading Title…</string>
+    <string name="fragment_song_player_video_channel_title">Loading Channel…</string>
 </resources>

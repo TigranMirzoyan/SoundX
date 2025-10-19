@@ -1,4 +1,4 @@
-package com.soundx.view.fragment
+package com.soundx.view.fragment.other
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,15 +13,16 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.soundx.R
+import com.soundx.appfragment.SpecialFragment
 import com.soundx.databinding.FragmentYoutubePlayerBinding
 import com.soundx.util.NavigationManager
-import com.soundx.appfragment.SpecialFragment
-import com.soundx.viewmodel.MusicViewModel
+import com.soundx.view.fragment.main.SearchFragment
+import com.soundx.viewmodel.SongViewModel
 
-class YoutubePlayer : SpecialFragment() {
+class SongPlayer : SpecialFragment() {
     private lateinit var binding: FragmentYoutubePlayerBinding
     private lateinit var youTubePlayer: YouTubePlayer
-    private lateinit var viewModel: MusicViewModel
+    private lateinit var viewModel: SongViewModel
     private var currentVideoIndex = -1
     private var videoIds = mutableListOf<String>()
     private var titles = mutableListOf<String>()
@@ -32,7 +33,7 @@ class YoutubePlayer : SpecialFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentYoutubePlayerBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(requireActivity())[MusicViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[SongViewModel::class.java]
         return binding.root
     }
 
@@ -77,7 +78,6 @@ class YoutubePlayer : SpecialFragment() {
     private fun observeVideoSelection() {
         viewModel.selectedSongPosition.observe(viewLifecycleOwner) { position ->
             if (position !in videoIds.indices) return@observe
-
             currentVideoIndex = position
         }
     }
@@ -93,7 +93,7 @@ class YoutubePlayer : SpecialFragment() {
 
         binding.youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                this@YoutubePlayer.youTubePlayer = youTubePlayer
+                this@SongPlayer.youTubePlayer = youTubePlayer
                 setupCustomControls()
                 setupSeekBar()
                 loadCurrentVideo()
@@ -136,7 +136,7 @@ class YoutubePlayer : SpecialFragment() {
             }
 
             minimize.setOnClickListener {
-                NavigationManager.navigateToFragment(SearchFragment::class)
+                NavigationManager.Companion.navigateToFragment(SearchFragment::class)
             }
 
             nextVideoBtn.setOnClickListener {
@@ -202,10 +202,11 @@ class YoutubePlayer : SpecialFragment() {
 
         Glide.with(this)
             .load(maxResThumbnailUrl)
-            .placeholder(R.drawable.ic_music_default)
-                .error(Glide.with(this)
+            .placeholder(R.drawable.ic_song_default)
+                .error(
+                    Glide.with(this)
                     .load(hqThumbnailUrl)
-                    .error(R.drawable.ic_music_default)
+                    .error(R.drawable.ic_song_default)
                     .centerCrop())
             .centerCrop()
             .into(binding.thumbnail)
@@ -223,7 +224,7 @@ class YoutubePlayer : SpecialFragment() {
     private fun setupBackButtonClick() {
         backPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                NavigationManager.navigateToFragment(SearchFragment::class)
+                NavigationManager.Companion.navigateToFragment(SearchFragment::class)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(

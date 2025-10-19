@@ -1,4 +1,4 @@
-package com.soundx.view.fragment
+package com.soundx.view.fragment.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
