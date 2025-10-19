@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
-    tools:context=".view.fragment.SearchFragment">
+    tools:context=".view.fragment.main.SearchFragment">
 
 
     <LinearLayout
@@ -20,12 +20,11 @@
             android:id="@+id/heading"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
-            android:text="@string/recycler_view_search_video_music_heading"
+            android:text="@string/recycler_view_search_song_heading"
             android:textColor="@color/primary_text_color"
-            android:textSize="26sp" />
+            android:textSize="32sp" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -54,8 +53,7 @@
         <FrameLayout
             android:id="@+id/searching_songs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -65,7 +63,7 @@
                 android:paddingTop="24dp"
                 android:paddingBottom="48dp"
                 tools:itemCount="10"
-                tools:listitem="@layout/search_music_item" />
+                tools:listitem="@layout/search_song_item" />
 
             <ImageView
                 android:layout_width="match_parent"

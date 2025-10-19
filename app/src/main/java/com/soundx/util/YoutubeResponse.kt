@@ -2,9 +2,9 @@ package com.soundx.util
 
 data class YouTubeResponse(val items: List<YouTubeItem>)
 
-data class YouTubeItem(val id: YouTubeId, val snippet: YouTubeSnippet)
+data class YouTubeItem(val id: YouTubeId?, val snippet: YouTubeSnippet)
 
-data class YouTubeId(val videoId: String)
+data class YouTubeId(val videoId: String?)
 
 data class YouTubeSnippet(
     val title: String,
@@ -17,8 +17,16 @@ data class YouTubeSong(
     val channelTitle: String
 )
 
-fun YouTubeItem.toYouTubeSong() = YouTubeSong(
-    videoId = this.id.videoId,
-    title = this.snippet.title,
-    channelTitle = this.snippet.channelTitle
-)
+fun YouTubeItem.toYouTubeSongOrNull(): YouTubeSong? {
+    val videoId = this.id?.videoId
+    val title = this.snippet.title
+    val channelTitle = this.snippet.channelTitle
+
+    return if (!videoId.isNullOrEmpty()) {
+        YouTubeSong(
+            videoId = videoId,
+            title = title,
+            channelTitle = channelTitle
+        )
+    } else null
+}

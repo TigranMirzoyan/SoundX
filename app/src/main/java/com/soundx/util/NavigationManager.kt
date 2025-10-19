@@ -3,10 +3,10 @@ package com.soundx.util
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.soundx.appfragment.AppFragment
-import com.soundx.view.fragment.PlaylistFragment
-import com.soundx.view.fragment.SearchFragment
-import com.soundx.view.fragment.SongFragment
-import com.soundx.view.fragment.YoutubePlayer
+import com.soundx.view.fragment.main.PlaylistFragment
+import com.soundx.view.fragment.main.SearchFragment
+import com.soundx.view.fragment.main.SongFragment
+import com.soundx.view.fragment.other.SongPlayer
 import kotlin.reflect.KClass
 
 class NavigationManager private constructor(private val fragmentManager: FragmentManager) {
@@ -14,7 +14,7 @@ class NavigationManager private constructor(private val fragmentManager: Fragmen
         SongFragment(),
         PlaylistFragment(),
         SearchFragment(),
-        YoutubePlayer(),
+        SongPlayer(),
     ).associateBy { it::class }
     private var currentFragmentKey: KClass<out AppFragment> = SongFragment::class
 

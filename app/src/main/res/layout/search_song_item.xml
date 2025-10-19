@@ -10,7 +10,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@color/background_color"
-        android:contentDescription="@string/recycler_view_search_video_music_image"
+        android:contentDescription="@string/recycler_view_search_song_image"
         app:shapeAppearanceOverlay="@style/squircleImageViewRV" />
 
     <LinearLayout
