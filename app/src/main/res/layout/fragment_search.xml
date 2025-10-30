@@ -27,6 +27,7 @@
             android:textSize="32sp" />
 
         <ImageButton
+            android:id="@+id/link_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -44,7 +45,7 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="48dp"
             android:background="@drawable/search_view_background"
             android:paddingHorizontal="4dp"
             app:queryHint="Songs, playlists or artists"
@@ -63,7 +64,7 @@
                 android:paddingTop="24dp"
                 android:paddingBottom="48dp"
                 tools:itemCount="10"
-                tools:listitem="@layout/search_song_item" />
+                tools:listitem="@layout/song_search_item" />
 
             <ImageView
                 android:layout_width="match_parent"

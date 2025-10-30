@@ -22,8 +22,6 @@ android {
 
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
-
-        android.buildFeatures.buildConfig = true
         buildConfigField("String", "API_KEY", "\"${properties.getProperty("youtubeApiKey")}\"")
     }
 
@@ -40,6 +38,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
 
     compileOptions {

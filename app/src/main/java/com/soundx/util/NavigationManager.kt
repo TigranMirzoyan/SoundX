@@ -6,7 +6,7 @@ import com.soundx.appfragment.AppFragment
 import com.soundx.view.fragment.main.PlaylistFragment
 import com.soundx.view.fragment.main.SearchFragment
 import com.soundx.view.fragment.main.SongFragment
-import com.soundx.view.fragment.other.SongPlayer
+import com.soundx.view.fragment.other.SongSearchFragment
 import kotlin.reflect.KClass
 
 class NavigationManager private constructor(private val fragmentManager: FragmentManager) {
@@ -14,7 +14,7 @@ class NavigationManager private constructor(private val fragmentManager: Fragmen
         SongFragment(),
         PlaylistFragment(),
         SearchFragment(),
-        SongPlayer(),
+        SongSearchFragment(),
     ).associateBy { it::class }
     private var currentFragmentKey: KClass<out AppFragment> = SongFragment::class
 

@@ -12,8 +12,7 @@
         android:id="@+id/default_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottomNavigation"
-        android:layout_marginBottom="-36dp"
+        android:layout_marginBottom="32dp"
         android:visibility="visible" />
 
     <FrameLayout

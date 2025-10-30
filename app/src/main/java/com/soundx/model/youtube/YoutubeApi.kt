@@ -1,6 +1,8 @@
 package com.soundx.model.youtube
 
 import com.soundx.BuildConfig
+import com.soundx.util.SearchYouTubeItem
+import com.soundx.util.VideoYouTubeItem
 import com.soundx.util.YouTubeResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +16,12 @@ interface YoutubeApi {
         @Query("videoCategoryId") videoCategoryId: String = "10",
         @Query("maxResults") maxResults: Int = 15,
         @Query("key") apiKey: String = BuildConfig.API_KEY
-    ): YouTubeResponse
+    ): YouTubeResponse<SearchYouTubeItem>
+
+    @GET("videos")
+    suspend fun getVideoById(
+        @Query("part") part: String = "snippet",
+        @Query("id") videoId: String,
+        @Query("key") apiKey: String = BuildConfig.API_KEY
+    ): YouTubeResponse<VideoYouTubeItem>
 }
