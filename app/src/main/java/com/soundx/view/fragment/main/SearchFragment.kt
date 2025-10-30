@@ -18,14 +18,14 @@ import com.soundx.util.NavigationManager
 import com.soundx.util.SearchHistoryManager
 import com.soundx.util.YouTubeSong
 import com.soundx.view.adapter.SearchHistoryAdapter
-import com.soundx.view.adapter.SearchSongAdapter
-import com.soundx.view.fragment.other.SongPlayer
+import com.soundx.view.adapter.SongSearchAdapter
+import com.soundx.view.fragment.other.SongSearchFragment
 import com.soundx.viewmodel.SongViewModel
 
 class SearchFragment : DefaultFragment() {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: SongViewModel
-    private lateinit var songAdapter: SearchSongAdapter
+    private lateinit var songAdapter: SongSearchAdapter
     private lateinit var historyAdapter: SearchHistoryAdapter
     private val searchHandler = Handler(Looper.getMainLooper())
 
@@ -41,11 +41,12 @@ class SearchFragment : DefaultFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSearchView()
+        configureLinkSearchButton()
     }
 
     private fun setupRecyclerView() {
-        songAdapter = SearchSongAdapter(setSongOnClickListener())
-        historyAdapter = SearchHistoryAdapter (
+        songAdapter = SongSearchAdapter(setSongOnClickListener())
+        historyAdapter = SearchHistoryAdapter(
             onItemClick = { query ->
                 binding.searchView.setQuery(query, true)
             },
@@ -119,15 +120,21 @@ class SearchFragment : DefaultFragment() {
 
     private fun setSongOnClickListener(): (Int) -> Unit = { position ->
         viewModel.selectSong(position)
-        val query = binding.searchView.query.toString()
-        if (query.isNotBlank()) {
-            SearchHistoryManager.saveQuery(requireContext(), query)
-        }
 
-        NavigationManager.navigateToFragment(SongPlayer::class)
+        val query = binding.searchView.query.toString()
+        if (query.isNotBlank()) SearchHistoryManager.saveQuery(requireContext(), query)
+
+        NavigationManager.navigateToFragment(SongSearchFragment::class)
     }
 
     private fun performSearch(query: String) {
         viewModel.searchSongFromYoutube(query)
+    }
+
+    private fun configureLinkSearchButton() {
+        binding.linkSearch.setOnClickListener {
+            viewModel.selectLinkMode()
+            NavigationManager.navigateToFragment(SongSearchFragment::class)
+        }
     }
 }

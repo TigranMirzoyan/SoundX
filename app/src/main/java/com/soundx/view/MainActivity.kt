@@ -16,7 +16,7 @@ import com.soundx.view.fragment.main.PlaylistFragment
 import com.soundx.view.fragment.main.SearchFragment
 import com.soundx.view.fragment.main.SongFragment
 
-class MainActivity : AppCompatActivity(), SpecialFragmentContainer {
+class   MainActivity : AppCompatActivity(), SpecialFragmentContainer {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

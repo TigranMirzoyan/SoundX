@@ -18,6 +18,11 @@
     <string name="fragment_song_player_pause_video">Pause</string>
     <string name="fragment_song_player_next_video">Next Video</string>
     <string name="fragment_song_player_video_image">Thumbnail</string>
-    <string name="fragment_song_player_video_title">Loading Title…</string>
-    <string name="fragment_song_player_video_channel_title">Loading Channel…</string>
+    <string name="fragment_song_player_video_title">Title…</string>
+    <string name="fragment_song_player_video_channel_title">Channel…</string>
+
+    <string name="fragment_link_search_editText_id">Youtube Video/Song ID…</string>
+    <string name="fragment_link_search_confirm_button">Confirm</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

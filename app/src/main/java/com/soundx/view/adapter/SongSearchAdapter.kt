@@ -5,19 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.soundx.R
-import com.soundx.databinding.SearchSongItemBinding
+import com.soundx.databinding.SongSearchItemBinding
+import com.soundx.thumbnail.ThumbnailQuality
+import com.soundx.thumbnail.YouTubeThumbnailLoader
 import com.soundx.util.YouTubeSong
 
-class SearchSongAdapter(private val onItemClick: (Int) -> Unit) :
-    ListAdapter<YouTubeSong, SearchSongAdapter.YouTubeSongViewHolder>(YouTubeSongDiffCallBack) {
+class SongSearchAdapter(private val onItemClick: (Int) -> Unit) :
+    ListAdapter<YouTubeSong, SongSearchAdapter.YouTubeSongViewHolder>(YouTubeSongDiffCallBack) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): YouTubeSongViewHolder {
-        val binding = SearchSongItemBinding.inflate(
+        val binding = SongSearchItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -34,19 +34,18 @@ class SearchSongAdapter(private val onItemClick: (Int) -> Unit) :
         }
     }
 
-    inner class YouTubeSongViewHolder(private val binding: SearchSongItemBinding) :
+    inner class YouTubeSongViewHolder(private val binding: SongSearchItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(song: YouTubeSong) {
             binding.title.text = song.title
             binding.creator.text = song.channelTitle
 
-            val thumbnailUrl = "https://img.youtube.com/vi/${song.videoId}/mqdefault.jpg"
-            Glide.with(binding.thumbnail.context)
-                .load(thumbnailUrl)
-                .placeholder(R.drawable.ic_song_default)
-                .error(R.drawable.ic_song_default)
-                .centerCrop()
-                .into(binding.thumbnail)
+            YouTubeThumbnailLoader.loadThumbnail(
+                song.videoId,
+                listOf(ThumbnailQuality.MEDIUM),
+                binding.thumbnail,
+                binding.thumbnail.context
+            )
         }
     }
 
